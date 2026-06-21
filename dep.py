@@ -4,6 +4,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 
+st.markdown("""
+<style>
+.stApp {
+    background-color: #EDE7F6;
+}
+</style>
+""", unsafe_allow_html=True)
+
+data = pd.read_csv("Placement_data.csv")
+
+
 data = pd.read_csv("Placement_data.csv")
 data = data.dropna()
 
