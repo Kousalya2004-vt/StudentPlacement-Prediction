@@ -1,0 +1,38 @@
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+
+data = pd.read_csv("Placement_data.csv")
+
+for c in data.columns:
+    if data[c].dtype == "object":
+        le = LabelEncoder()
+        data[c] = le.fit_transform(data[c])
+
+x = data.drop(["status", "salary"], axis=1)
+y = data["status"]
+
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, test_size=0.2, random_state=42
+)
+
+model = RandomForestClassifier(random_state=42)
+model.fit(x_train, y_train)
+
+st.title("Student Placement Prediction")
+
+ssc_p = st.number_input("SSC Percentage", 0, 100)
+hsc_p = st.number_input("HSC Percentage", 0, 100)
+degree_p = st.number_input("Degree Percentage", 0, 100)
+etest_p = st.number_input("E-Test Percentage", 0, 100)
+mba_p = st.number_input("MBA Percentage", 0, 100)
+
+if st.button("Predict"):
+    avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
+
+    if avg >= 60:
+        st.success("Placed")
+    else:
+        st.error("Not Placed")
