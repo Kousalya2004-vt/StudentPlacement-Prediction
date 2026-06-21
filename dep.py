@@ -51,10 +51,18 @@ if st.button("Predict"):
 
     if avg >= 60:
         st.success("Placed")
+        st.balloons()
     else:
         st.error("Not Placed")
 
     st.write(f"Placement Chance: {chance}%")
+
+    st.subheader("Student Details")
+    name = st.text_input("Student Name")
+
+    st.write("Name:", name)
+    st.write("Result:", "Placed" if avg >= 60 else "Not Placed")
+    st.write("Placement Chance:", f"{chance}%")
 
     chart = pd.DataFrame({
         "Status": ["Chance", "Remaining"],
