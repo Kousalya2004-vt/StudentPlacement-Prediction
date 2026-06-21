@@ -36,6 +36,8 @@ model = RandomForestClassifier(random_state=42)
 model.fit(x_train, y_train)
 
 st.title("Student Placement Prediction")
+st.subheader("Student Details")
+name = st.text_input("Student Name")
 
 ssc_p = st.number_input("SSC Percentage", 0, 100)
 hsc_p = st.number_input("HSC Percentage", 0, 100)
@@ -43,8 +45,6 @@ degree_p = st.number_input("Degree Percentage", 0, 100)
 etest_p = st.number_input("E-Test Percentage", 0, 100)
 mba_p = st.number_input("MBA Percentage", 0, 100)
 
-st.subheader("Student Details")
-name = st.text_input("Student Name")
 
 
 if st.button("Predict"):
@@ -52,7 +52,7 @@ if st.button("Predict"):
     avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
     chance = min(100, int(avg))
     st.write("Name:", name)
-    
+
 
     if avg >= 60:
         st.success("Placed")
