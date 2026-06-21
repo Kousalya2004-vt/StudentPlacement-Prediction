@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 import plotly.express as px
-import pandas as pd
+
 
 st.markdown("""
 <style>
@@ -43,29 +43,29 @@ degree_p = st.number_input("Degree Percentage", 0, 100)
 etest_p = st.number_input("E-Test Percentage", 0, 100)
 mba_p = st.number_input("MBA Percentage", 0, 100)
 
+
 if st.button("Predict"):
 
     avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
+    chance = min(100, int(avg))
 
     if avg >= 60:
         st.success("Placed")
     else:
         st.error("Not Placed")
 
-    chance = min(100, int(avg))
-
     st.write(f"Placement Chance: {chance}%")
 
-chart = pd.DataFrame({
-    "Status": ["Chance", "Remaining"],
-    "Value": [chance, 100 - chance]
-})
+    chart = pd.DataFrame({
+        "Status": ["Chance", "Remaining"],
+        "Value": [chance, 100 - chance]
+    })
 
-fig = px.pie(
-    chart,
-    names="Status",
-    values="Value",
-    title="Placement Chance"
-)
+    fig = px.pie(
+        chart,
+        names="Status",
+        values="Value",
+        title="Placement Chance"
+    )
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
