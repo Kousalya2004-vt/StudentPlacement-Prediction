@@ -5,13 +5,14 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 
 data = pd.read_csv("Placement_data.csv")
+data = data.dropna()
 
 for c in data.columns:
     if data[c].dtype == "object":
         le = LabelEncoder()
         data[c] = le.fit_transform(data[c])
 
-x = data.drop(["status", "salary"], axis=1)
+x = data[["ssc_p", "hsc_p", "degree_p", "etest_p", "mba_p"]]
 y = data["status"]
 
 x_train, x_test, y_train, y_test = train_test_split(
@@ -30,9 +31,9 @@ etest_p = st.number_input("E-Test Percentage", 0, 100)
 mba_p = st.number_input("MBA Percentage", 0, 100)
 
 if st.button("Predict"):
-    avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
+    pred = model.predict([[ssc_p, hsc_p, degree_p, etest_p, mba_p]])
 
-    if avg >= 60:
+    if pred[0] == 1:
         st.success("Placed")
     else:
         st.error("Not Placed")
