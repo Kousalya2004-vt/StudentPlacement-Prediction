@@ -43,11 +43,16 @@ degree_p = st.number_input("Degree Percentage", 0, 100)
 etest_p = st.number_input("E-Test Percentage", 0, 100)
 mba_p = st.number_input("MBA Percentage", 0, 100)
 
+st.subheader("Student Details")
+name = st.text_input("Student Name")
+
 
 if st.button("Predict"):
 
     avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
     chance = min(100, int(avg))
+    st.write("Name:", name)
+    
 
     if avg >= 60:
         st.success("Placed")
@@ -57,12 +62,8 @@ if st.button("Predict"):
 
     st.write(f"Placement Chance: {chance}%")
 
-    st.subheader("Student Details")
-    name = st.text_input("Student Name")
 
-    st.write("Name:", name)
-    st.write("Result:", "Placed" if avg >= 60 else "Not Placed")
-    st.write("Placement Chance:", f"{chance}%")
+
 
     chart = pd.DataFrame({
         "Status": ["Chance", "Remaining"],
