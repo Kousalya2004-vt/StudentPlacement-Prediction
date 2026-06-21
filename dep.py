@@ -53,3 +53,8 @@ if st.button("Predict"):
     chance = min(100, int(avg))
 
     st.write(f"Placement Chance: {chance}%")
+
+    chart_data = [
+    {"status": "Chance", "value": chance},
+    {"status": "Remaining", "value": 100 - chance}
+]
