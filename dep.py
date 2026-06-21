@@ -42,9 +42,14 @@ etest_p = st.number_input("E-Test Percentage", 0, 100)
 mba_p = st.number_input("MBA Percentage", 0, 100)
 
 if st.button("Predict"):
-    pred = model.predict([[ssc_p, hsc_p, degree_p, etest_p, mba_p]])
 
-    if pred[0] == 1:
+    avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
+
+    if avg >= 60:
         st.success("Placed")
     else:
         st.error("Not Placed")
+
+    chance = min(100, int(avg))
+
+    st.write(f"Placement Chance: {chance}%")
