@@ -3,6 +3,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
+import plotly.express as px
+import pandas as pd
 
 st.markdown("""
 <style>
@@ -54,7 +56,16 @@ if st.button("Predict"):
 
     st.write(f"Placement Chance: {chance}%")
 
-    chart_data = [
-    {"status": "Chance", "value": chance},
-    {"status": "Remaining", "value": 100 - chance}
-]
+chart = pd.DataFrame({
+    "Status": ["Chance", "Remaining"],
+    "Value": [chance, 100 - chance]
+})
+
+fig = px.pie(
+    chart,
+    names="Status",
+    values="Value",
+    title="Placement Chance"
+)
+
+st.plotly_chart(fig)
