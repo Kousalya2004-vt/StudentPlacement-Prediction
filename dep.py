@@ -35,7 +35,7 @@ x_train, x_test, y_train, y_test = train_test_split(
 model = RandomForestClassifier(random_state=42)
 model.fit(x_train, y_train)
 
-st.title("Student Placement Prediction")
+st.title("AI-Based Student Placement Prediction System")
 st.subheader("Student Details")
 name = st.text_input("Student Name")
 
@@ -52,6 +52,9 @@ if st.button("Predict"):
     avg = (ssc_p + hsc_p + degree_p + etest_p + mba_p) / 5
     chance = min(100, int(avg))
     st.write("Name:", name)
+    st.write("Result:", "Placed" if avg >= 60 else "Not Placed")
+    st.write("Placement Chance:", f"{chance}%")
+    st.write("Project: AI-Based Student Placement Prediction System")
 
 
     if avg >= 60:
